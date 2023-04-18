@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     is_online: {
-        typeof: String,
+        type: String,
         default: '0'
     }
 },
@@ -32,4 +32,4 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.Model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);

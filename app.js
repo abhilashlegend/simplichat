@@ -8,6 +8,10 @@ const app = require('express')();
 
 const http = require('http').Server(app);
 
+const userRoute = require('./routes/userRoutes');
+
+app.use('/', userRoute);
+
 const port = 8000;
 
 http.listen(port, () => {

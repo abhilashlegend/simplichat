@@ -1,13 +1,26 @@
 html
   head
-    title My Website
+    title= title
     link(rel="stylesheet",type="text/css",href="./css/bootstrap.min.css")
+    link(rel="stylesheet",type="text/css",href="./css/style.css")
   body
-    header
-      h1 Welcome to my website
+    header.d-flex.flex-wrap.justify-content-center.py-3.border-bottom.simpli-nav
+      a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-dark.text-decoration-none(href="/")
+        img.bi.me-2.logo(src="./images/logo.svg", alt="Logo, link to home page")
+
+      nav
+        ul.nav.nav-pills
+          li.nav-item
+            a.nav-link(href="/login") Login        
+          li.nav-item
+            a.nav-link(href="/register") Register
     main
       block content
 
     script(src="./js/bootstrap.bundle.min.js")  
-    footer
-      p Copyright © 2023 My Website
+    
+    footer.text-center.text-lg-start.footer
+      div.text-center.p-3(style="background-color: rgba(0, 0, 0, 0.2);")
+        © 2023 Copyright:
+        a.text-dark(href="https://abhilashwebdeveloper.com/") By Abhilash N
+

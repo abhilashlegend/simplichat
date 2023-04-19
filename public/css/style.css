@@ -1,0 +1,18 @@
+:root {
+    --primary-color: #e3f2fd;
+}
+.logo { width: 42px; height: 42px; }
+.simpli-nav { background-color: var(--primary-color) ; padding: 0 1rem;}
+.nav-link { cursor: pointer;}
+
+/* Home Page */
+
+.hero-bg { background-image: url(../images/home-bg.jpg); background-position: center center; background-size: cover; height: 90vh; 
+color: #FFF; display: flex; }
+.hero-content { align-self: center; text-align: center; background-color: rgba(0, 0, 0, 0.6); padding: 2rem; justify-self: center; width: 100%;}
+
+.section-title { text-align: center; }
+
+.footer {
+    background-color: var(--primary-color);
+}

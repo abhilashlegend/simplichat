@@ -28,6 +28,8 @@ const storage = multer.diskStorage({
 
 const userController = require('../controllers/userController');
 
+user_route.get('/', userController.homePage);
+
 user_route.get('/register', userController.registerPage );
 //user_route.post('/register', upload.single('image'), userController.register );
 

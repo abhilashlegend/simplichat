@@ -1,9 +1,19 @@
+/* Common styles */
 :root {
     --primary-color: #e3f2fd;
 }
 .logo { width: 42px; height: 42px; }
 .simpli-nav { background-color: var(--primary-color) ; padding: 0 1rem;}
 .nav-link { cursor: pointer;}
+.btn-simplichat { border-radius: 0px; background-color: #6AE184; width: 100%; font-weight: bold; text-transform: uppercase; position: relative; transition: all .2s; }
+.btn-simplichat:hover { background-color: #55c57a; transform: translateY(0.3rem); box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+.form-control { border-radius: 0px;}
+
+/* Footer Section */
+
+.footer {
+    background-color: var(--primary-color);
+}
 
 /* Home Page */
 
@@ -13,6 +23,9 @@ color: #FFF; display: flex; }
 
 .section-title { text-align: center; }
 
-.footer {
-    background-color: var(--primary-color);
-}
+/* Register Page */
+.register-heading { display: flex; justify-content: center; padding-top: 6rem; }
+.reg-sub-title { font-size: 1.5rem; text-align: center;}
+.reg-sub-link { color: #aeaeae; text-align: center; }
+.reg-form { padding: 0 6rem 6rem;}
+.reg-form label { font-weight: bold; }

@@ -1,6 +1,46 @@
 extends master.jade
 
 block content
-  h1 Register
+  .container 
+    .row 
+      .col-md-6 
+      .col-md-6
+        .register-heading 
+          img.logo.me-3(src="./images/logo.svg" alt="simlichat logo")
+          h1.text-center.fw-bold.display-inline Simplichat 
+        h2.reg-sub-title Sign Up to your account
+        p.reg-sub-link Already have an account ? 
+          a(href="/login") Sign In 
+        if typeof message !== 'undefined'
+          .alert.alert-success(role="alert")= message
+        form.reg-form(action="/register", method="post", enctype="multipart/form-data")
+          .mb-3
+            label.form-label(for="firstName") First Name
+            input.form-control#firstName(name="firstName")
 
-  form(action="", method="post", enctype="multipart/form-data")
+          .mb-3
+            label.form-label(for="lastName") Last Name
+            input.form-control#lastName(name="lastName") 
+
+          .mb-3
+            label.form-label(for="email") Email
+            input.form-control#email(type="email", name="email")
+
+          .mb-3
+            label.form-label(for="phone") Phone
+            input.form-control#phone(name="phone")
+
+          .mb-3 
+            label.form-label(for="profilepic") Upload Profile Picture
+            input.form-control#profilepic(type="file", name="image")
+
+          .mb-3 
+            label.form-label(for="password") Password
+            input.form-control#password(type="password", name="password")
+
+          .mb-3 
+            label.form-label(for="confirmpassword") Confirm Password
+            input.form-control(type="password", name="confirmPassword")   
+
+          button.btn.btn-simplichat(type="submit") Submit
+

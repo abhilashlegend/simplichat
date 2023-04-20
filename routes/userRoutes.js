@@ -18,7 +18,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, path.join(__dirname, '../public/images'));
+        cb(null, path.join(__dirname, '../public/uploads'));
     },
     filename:function(req, file, cb){
         const name = Date.now() + '-' + file.originalname;
@@ -27,12 +27,11 @@ const storage = multer.diskStorage({
 });
 
 const userController = require('../controllers/userController');
+const upload = multer({ storage: storage });
 
 user_route.get('/', userController.homePage);
 
 user_route.get('/register', userController.registerPage );
-//user_route.post('/register', upload.single('image'), userController.register );
-
-const upload = multer({ storage: storage });
+user_route.post('/register', upload.single('image'), userController.register );
 
 module.exports = user_route;

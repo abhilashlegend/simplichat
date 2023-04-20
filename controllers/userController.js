@@ -19,7 +19,25 @@ const registerPage = async (req, res) => {
 }
 
 const register = async (req, res) => {
+    try {
+        const passwordHash = await bcrypt.hash(req.body.password, 10);
 
+        const user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phone: req.body.phone,
+            image: 'uploads/' + req.file.filename,
+            password: passwordHash
+        });
+
+        await user.save();
+
+        res.render('register', {message: 'Registration completed successfully!'});
+
+    } catch(error){
+        console.log(error);
+    }
 }
 
 module.exports = {

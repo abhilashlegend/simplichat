@@ -3,6 +3,13 @@ const express = require('express');
 const user_route = express();
 
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const { SESSION_SECRET } = process.env;
+user_route.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
 
 user_route.use(bodyParser.json());
 
@@ -33,5 +40,10 @@ user_route.get('/', userController.homePage);
 
 user_route.get('/register', userController.registerPage );
 user_route.post('/register', upload.single('image'), userController.register );
+user_route.get('/login', userController.loginPage);
+user_route.post('/login', userController.login);
+user_route.get('/logout', userController.logout);
+user_route.get('/dashboard', userController.dashboardPage);
+user_route.get('*', (req, res) => res.redirect('/'));
 
 module.exports = user_route;

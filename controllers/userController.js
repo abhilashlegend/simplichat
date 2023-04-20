@@ -9,6 +9,38 @@ const homePage = async (req, res) => {
     }
 }
 
+const loginPage = async (req, res) => {
+    try {
+        res.render('login', {title: "Login"});
+    } catch(error){
+        console.log(error);
+    }
+}
+
+const login = async (req, res) => {
+    try {
+        
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+const logout = async(req, res) => {
+    try {
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+const dashboardPage = async(req, res) => {
+    try {
+
+    } catch(error) {
+        console.log(error);
+    }
+}
+
 const registerPage = async (req, res) => {
     try {
         res.render('register',{title: "Register"});
@@ -43,5 +75,9 @@ const register = async (req, res) => {
 module.exports = {
     homePage,
     registerPage,
-    register
+    register,
+    loginPage,
+    login,
+    logout,
+    dashboardPage
 }

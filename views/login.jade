@@ -1,0 +1,26 @@
+extends master.jade
+
+block content
+    .container
+        .row 
+            .col-md-6
+                .register-heading 
+                    img.logo.me-3(src="./images/logo.svg" alt="simlichat logo")
+                    h1.text-center.fw-bold.display-inline Welcome to Simplichat 
+                h2.reg-sub-title Sign In to your account
+                p.reg-sub-link Don't have an account ? 
+                    a(href="/register") Sign Up 
+                if typeof message !== 'undefined'
+                    .alert.alert-success(role="alert")= message
+                form.reg-form(action="/login", method="post")
+                    .mb-3
+                        label.form-label(for="email") Email
+                        input.form-control#email(type="email", name="email")
+                
+                    .mb-3 
+                        label.form-label(for="password") Password
+                        input.form-control#password(type="password", name="password")
+
+                    button.btn.btn-simplichat(type="submit") Login
+            .col-md-6
+                img.img-fluid(src="./images/login-page-img.jpg", alt="woman and man chating illustration")

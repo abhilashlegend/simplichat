@@ -8,12 +8,23 @@ html
       a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-dark.text-decoration-none(href="/")
         img.bi.me-2.logo(src="./images/logo.svg", alt="Logo, link to home page")
 
-      nav
-        ul.nav.nav-pills
-          li.nav-item
-            a.nav-link(href="/login") Login        
-          li.nav-item
-            a.nav-link(href="/register") Register
+      if typeof user === 'undefined'
+        nav
+          ul.nav.nav-pills
+            li.nav-item
+              a.nav-link(href="/login") Login        
+            li.nav-item
+              a.nav-link(href="/register") Register
+      else 
+        .dropdown
+          button.btn.logged-menu.dropdown-toggle(type="button", id="dropdownMenuButton1", data-bs-toggle="dropdown", aria-expanded="false")= 'Welcome ' + user.firstName
+            img.img-fluid.mnu-profile-pic(src=user.image)
+          ul.dropdown-menu.profile-drpmnu(aria-labelledby="dropdownMenuButton1")
+            li
+              a.dropdown-item(href="/profile") Profile 
+            li
+              a.dropdown-item(href="/logout") Logout   
+    
     main
       block content
 

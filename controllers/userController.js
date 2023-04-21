@@ -27,7 +27,7 @@ const login = async (req, res) => {
             const passwordMatch = bcrypt.compare(password, userData.password);
 
             if(passwordMatch){
-                req.sesssion.user = userData;
+                req.session.user = userData;
                 res.redirect('/dashboard');
             } else {
                 res.render('login', {message: 'Email or Password is incorrect!'});
@@ -42,7 +42,7 @@ const login = async (req, res) => {
 
 const logout = async(req, res) => {
     try {
-        req.sesssion.destroy();
+        req.session.destroy();
         res.redirect('/');
     } catch(error) {
         console.log(error);
@@ -51,7 +51,7 @@ const logout = async(req, res) => {
 
 const dashboardPage = async(req, res) => {
     try {
-        res.render('dashboard');
+        res.render('dashboard', { title: "Dashboard", user: req.session.user });
     } catch(error) {
         console.log(error);
     }
@@ -75,7 +75,7 @@ const register = async (req, res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             phone: req.body.phone,
-            image: 'uploads/' + req.file.filename,
+            image: 'images/uploads/' + req.file.filename,
             password: passwordHash
         });
 

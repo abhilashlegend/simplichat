@@ -29,3 +29,18 @@ color: #FFF; display: flex; }
 .reg-sub-link { color: #aeaeae; text-align: center; }
 .reg-form { padding: 0 6rem 6rem;}
 .reg-form label { font-weight: bold; }
+
+
+@media only screen and (min-width : 768px) {
+    .reg-form { padding: 0 3rem 3rem;}
+}
+
+@media only screen and (min-width : 992px) {
+    .reg-form { padding: 0 6rem 6rem; }
+}
+
+/* Dashboard */
+.mnu-profile-pic { border-radius: 50%; width: 42px; height: 42px; margin-left: 1rem;}
+.logged-menu { background-color: var(--primary-color); border: none;}
+.profile-drpmnu { width: 13rem; }
+

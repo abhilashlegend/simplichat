@@ -19,7 +19,22 @@ const loginPage = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        
+        const email = req.body.email;
+        const password = req.body.password;
+
+        const userData = await User.findOne({email: email});
+        if(userData){
+            const passwordMatch = bcrypt.compare(password, userData.password);
+
+            if(passwordMatch){
+                req.sesssion.user = userData;
+                res.redirect('/dashboard');
+            } else {
+                res.render('login', {message: 'Email or Password is incorrect!'});
+            }
+        } else {
+            res.render('login', {message: 'Email or Password is incorrect!'})
+        }
     } catch(error) {
         console.log(error);
     }
@@ -27,7 +42,8 @@ const login = async (req, res) => {
 
 const logout = async(req, res) => {
     try {
-
+        req.sesssion.destroy();
+        res.redirect('/');
     } catch(error) {
         console.log(error);
     }
@@ -35,7 +51,7 @@ const logout = async(req, res) => {
 
 const dashboardPage = async(req, res) => {
     try {
-
+        res.render('dashboard');
     } catch(error) {
         console.log(error);
     }

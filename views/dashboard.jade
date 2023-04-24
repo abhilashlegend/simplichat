@@ -2,4 +2,22 @@ extends master.jade
 
 block content
 
-    h1 Dashboard
+    .container-fluid 
+        .row.py-4 
+            .col-md-4 
+                .d-flex.flex-column.flex-shrink-0.p-3.bg-light
+                    ul.nav.nav-pills.flex-column.mb-auto
+                        li
+                            a.nav-link.link-dark.active(href="/dashboard") 
+                                i.bi.bi-speedometer2.me-2
+                                | Dashboard
+                            a.nav-link.link-dark(href="/contacts") 
+                                i.bi.bi-person-vcard-fill.me-2
+                                | Contacts
+                            a.nav-link.link-dark(href="/messages") 
+                                i.bi.bi-chat.me-2
+                                | Messages
+                            a.nav-link.link-dark(href="/logout") 
+                                i.bi.bi-power.me-2
+                                | Logout
+            .col-md-8 

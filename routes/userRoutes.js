@@ -20,6 +20,12 @@ user_route.set('views', './views');
 
 user_route.use(express.static('public'));
 
+// Serve the Bootstrap Icons CSS file
+user_route.use('/css/bootstrap-icons.css', express.static('node_modules/bootstrap-icons/font/bootstrap-icons.css'));
+
+// Serve the Bootstrap Icons SVG sprite file
+user_route.use('/icons/bootstrap-icons.svg', express.static('node_modules/bootstrap-icons/font/bootstrap-icons.svg'));
+
 const path = require('path');
 const multer = require('multer');
 
@@ -34,16 +40,17 @@ const storage = multer.diskStorage({
 });
 
 const userController = require('../controllers/userController');
+const auth = require('../middlewares/auth');
 const upload = multer({ storage: storage });
 
-user_route.get('/', userController.homePage);
+user_route.get('/', auth.isLogout, userController.homePage);
 
-user_route.get('/register', userController.registerPage );
+user_route.get('/register', auth.isLogout,  userController.registerPage );
 user_route.post('/register', upload.single('image'), userController.register );
-user_route.get('/login', userController.loginPage);
+user_route.get('/login', auth.isLogout, userController.loginPage);
 user_route.post('/login', userController.login);
-user_route.get('/logout', userController.logout);
-user_route.get('/dashboard', userController.dashboardPage);
+user_route.get('/logout', auth.isLogin, userController.logout);
+user_route.get('/dashboard', auth.isLogin, userController.dashboardPage);
 user_route.get('*', (req, res) => res.redirect('/'));
 
 module.exports = user_route;

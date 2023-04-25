@@ -4,11 +4,11 @@ block content
 
     .container-fluid 
         .row.py-4 
-            .col-md-4 
+            .col-md-3 
                 .d-flex.flex-column.flex-shrink-0.p-3.bg-light
                     ul.nav.nav-pills.flex-column.mb-auto
                         li
-                            a.nav-link.link-dark.active(href="/dashboard") 
+                            a.nav-link.link-dark.active.active-mnu(href="/dashboard") 
                                 i.bi.bi-speedometer2.me-2
                                 | Dashboard
                             a.nav-link.link-dark(href="/contacts") 
@@ -20,4 +20,46 @@ block content
                             a.nav-link.link-dark(href="/logout") 
                                 i.bi.bi-power.me-2
                                 | Logout
-            .col-md-8 
+            .col-md-9 
+                .row 
+                    .col-sm-4
+                        .people-list 
+                            .h4 New Users
+                            .input-group
+                                .input-group-prepend
+                                    span.input-group-text
+                                        i.bi.bi-search
+                                input.form-control(type="text", placeholder="Search...")
+                            ul.list-unstyled.chat-list.mt-2.mb-0 
+                                if users && users.length > 0
+                                    each user in users
+                                        li.clearfix.user-item
+                                            img(src=user.image, alt="avatar")
+                                            div.about
+                                                div.name= user.firstName + ' ' + user.lastName 
+                                                div.status
+                                                    i.bi.bi-circle-fill.me-2.offline 
+                                                    | left 7 mins ago 
+                    .col-sm-8
+                        .chat#chatbox 
+                            .chat-history
+                                .h4#selected-chat 
+                                ul.m-b-0
+                                    li.clearfix
+                                        .message-data.text-right  
+                                            span.message-data-time 10:10 AM
+                                        .message.other-message.float-right  Hi Aiden, how are you? How is the project coming along?
+                            form.form-inline
+                                .input-group.mb-3
+                                    input.form-control.w-70(type="text", placeholder="Enter text here...")
+                                    .input-group-append
+                                        button.btn.chat-sendbtn(type="submit") 
+                                            i.bi.bi-send.me-2
+                                            | Send
+                    
+                                    
+                                    
+                            
+                                       
+                                    
+                                   

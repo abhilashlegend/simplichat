@@ -23,11 +23,17 @@ unsp.on('connection', async socket => {
 
     const userId = socket.handshake.auth.token;
 
-    await User.findByIdAndUpdate({ _id: userId }, { $set: { is_online: '1' }})
+    await User.findByIdAndUpdate({ _id: userId }, { $set: { is_online: '1' }});
+
+    // user broadcast online status
+    socket.broadcast.emit('getOnlineUser', {user_id: userId});
 
     socket.on('disconnect', async () => {
         console.log("user disconnected");
         await User.findByIdAndUpdate({ _id: userId }, { $set: { is_online: '0' }})
+
+        // user broadcast offline status
+        socket.broadcast.emit('getOfflineUser', {user_id: userId });
     })
 })
 

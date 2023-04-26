@@ -12,6 +12,19 @@ document.addEventListener('DOMContentLoaded',() => {
     }
 })
 
+// Update user status
+
+socket.on('getOnlineUser', data => {
+    const online = document.getElementById(data.user_id + '-status');
+    online.classList.remove('offline');
+    online.classList.add('online');
+});
+
+socket.on('getOfflineUser', data => {
+    const offline = document.getElementById(data.user_id + '-status');
+    offline.classList.remove('online');
+    offline.classList.add('offline');
+})
     
 
 

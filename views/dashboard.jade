@@ -39,9 +39,9 @@ block content
                                                 div.name= user.firstName + ' ' + user.lastName 
                                                 div.status
                                                     if user.is_online === "0"
-                                                        i.bi.bi-circle-fill.me-2.offline 
+                                                        i(id="#{user._id}-status").bi.bi-circle-fill.me-2.offline 
                                                     else 
-                                                        i.bi.bi-circle-fill.me-2.online 
+                                                        i(id="#{user._id}-status").bi.bi-circle-fill.me-2.online 
                     .col-sm-8
                         .chat#chatbox 
                             .chat-history
@@ -63,7 +63,7 @@ block content
 
     script. 
         const sender_id = '#{user._id}';
-        const socket = io('/user-namespace', {
+        var socket = io('/user-namespace', {
             auth: {
                 token: sender_id
             }

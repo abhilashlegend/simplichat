@@ -10,5 +10,8 @@ document.addEventListener('DOMContentLoaded',() => {
             chatUser.innerHTML = 'Chat with ' + user;
         })
     }
-
 })
+
+    
+
+

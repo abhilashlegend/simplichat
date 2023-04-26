@@ -38,8 +38,10 @@ block content
                                             div.about
                                                 div.name= user.firstName + ' ' + user.lastName 
                                                 div.status
-                                                    i.bi.bi-circle-fill.me-2.offline 
-                                                    | left 7 mins ago 
+                                                    if user.is_online === "0"
+                                                        i.bi.bi-circle-fill.me-2.offline 
+                                                    else 
+                                                        i.bi.bi-circle-fill.me-2.online 
                     .col-sm-8
                         .chat#chatbox 
                             .chat-history
@@ -56,6 +58,16 @@ block content
                                         button.btn.chat-sendbtn(type="submit") 
                                             i.bi.bi-send.me-2
                                             | Send
+    
+
+
+    script. 
+        const sender_id = '#{user._id}';
+        const socket = io('/user-namespace', {
+            auth: {
+                token: sender_id
+            }
+        });
                     
                                     
                                     

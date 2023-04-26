@@ -4,6 +4,7 @@ html
     link(rel="stylesheet",type="text/css",href="./css/bootstrap.min.css")
     link(rel="stylesheet",type="text/css",href="./css/style.css")
     link(rel='stylesheet', href='./css/bootstrap-icons.css')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js")
   body
     header.d-flex.flex-wrap.justify-content-center.py-3.border-bottom.simpli-nav
       a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-dark.text-decoration-none(href="/")
@@ -28,7 +29,7 @@ html
     
     main
       block content
-
+    
     script(src="./js/bootstrap.bundle.min.js")  
     script(src="./js/app.js")
     

@@ -11,6 +11,7 @@ const http = require('http').Server(app);
 const userRoute = require('./routes/userRoutes');
 
 const User = require("./models/userModel");
+const Chat = require("./models/chatModel");
 
 app.use('/', userRoute);
 
@@ -39,6 +40,16 @@ unsp.on('connection', async socket => {
     // chatting implementation
     socket.on('newChat', function(data){
         socket.broadcast.emit('loadNewChat', data);
+    })
+
+    // load old chats
+    socket.on('existsChat', async function(data) {
+        const chats = await Chat.find({ $or: [
+            { sender_id: data.sender_id, receiver_id: data.receiver_id},
+            {  sender_id: data.receiver_id, receiver_id: data.sender_id }
+        ]});
+
+        socket.emit('loadChats', { chats: chats })
     })
 })
 

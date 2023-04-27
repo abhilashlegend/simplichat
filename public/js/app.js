@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded',() => {
             chatUser.innerHTML = 'Chat with ' + user;
              let userId = this.getAttribute('data-id');
              receiver_id = userId;
-            
+            socket.emit('existsChat', {sender_id: sender_id, receiver_id: receiver_id});
         })
     }
 })
@@ -92,4 +92,49 @@ socket.on('loadNewChat', function(data){
         chatContainer.innerHTML += html;
     }
     
+})
+
+socket.on('loadChats', function(data){
+    const chatContainer = document.getElementById("chat-container");
+    chatContainer.innerHTML = '';
+
+    const chats = data.chats;
+
+    var options = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+    };
+
+    let html = '';
+
+    for(let x = 0; x < chats.length; x++){
+        let addClass = '';
+        let timeClass = '';
+        if(chats[x]['sender_id'] == sender_id){
+            addClass = 'message other-message float-right';
+            timeClass = 'message-data text-right';
+        } else {
+            addClass = 'message my-message';
+            timeClass = 'message-data';
+        }
+
+        const date = new Date(chats[x]['updatedAt']);
+        const formattedDate = date.toLocaleDateString("en-GB", options);
+
+        html += `
+        <li class="clearfix">
+            <div class="${timeClass}"> 
+                <span class="message-data-time">${formattedDate}</span> 
+            </div>
+            <div class="${addClass}"> 
+                ${chats[x]['message']}
+            </div>
+        </li>
+        `;
+    }
+    chatContainer.innerHTML += html;
 })

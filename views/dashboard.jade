@@ -33,7 +33,7 @@ block content
                             ul.list-unstyled.chat-list.mt-2.mb-0 
                                 if users && users.length > 0
                                     each user in users
-                                        li.clearfix.user-item
+                                        li.clearfix.user-item(data-id="#{user._id}")
                                             img(src=user.image, alt="avatar")
                                             div.about
                                                 div.name= user.firstName + ' ' + user.lastName 
@@ -46,14 +46,11 @@ block content
                         .chat#chatbox 
                             .chat-history
                                 .h4#selected-chat 
-                                ul.m-b-0
-                                    li.clearfix
-                                        .message-data.text-right  
-                                            span.message-data-time 10:10 AM
-                                        .message.other-message.float-right  Hi Aiden, how are you? How is the project coming along?
-                            form.form-inline
+                                ul.m-b-0#chat-container
+                                    
+                            form.form-inline#chat-form
                                 .input-group.mb-3
-                                    input.form-control.w-70(type="text", placeholder="Enter text here...")
+                                    input.form-control.w-70#message(type="text", name="message", placeholder="Enter text here...")
                                     .input-group-append
                                         button.btn.chat-sendbtn(type="submit") 
                                             i.bi.bi-send.me-2
@@ -62,7 +59,8 @@ block content
 
 
     script. 
-        const sender_id = '#{user._id}';
+        var sender_id = '#{user._id}';
+        var receiver_id;
         var socket = io('/user-namespace', {
             auth: {
                 token: sender_id

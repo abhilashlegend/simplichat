@@ -34,6 +34,11 @@ unsp.on('connection', async socket => {
 
         // user broadcast offline status
         socket.broadcast.emit('getOfflineUser', {user_id: userId });
+    });
+
+    // chatting implementation
+    socket.on('newChat', function(data){
+        socket.broadcast.emit('loadNewChat', data);
     })
 })
 

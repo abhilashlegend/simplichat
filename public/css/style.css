@@ -147,7 +147,7 @@ color: #FFF; display: flex; }
     pointer-events: none;
     border-bottom-color: #fff;
     border-width: 10px;
-    margin-left: -10px
+    margin-left: -33px
 }
 .chat-history .my-message:after {
     bottom: 100%;
@@ -210,4 +210,8 @@ color: #FFF; display: flex; }
 .chat-sendbtn {
     background-color: var(--secondary-color);
     border-radius: 0px;
+}
+
+.chat-history .my-message {
+    background: #efefef;
 }

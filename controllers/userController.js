@@ -105,6 +105,15 @@ const saveChat = async (req, res) => {
     }
 }
 
+const deleteChat = async (req, res) => {
+    try {
+        await Chat.deleteOne({_id: req.body.id });
+        res.status(200).send({ success: true, msg: error.message });
+    } catch (error) {
+        res.status(400).send({ success: false, msg: error.message });
+    }
+}
+
 module.exports = {
     homePage,
     registerPage,
@@ -113,5 +122,6 @@ module.exports = {
     login,
     logout,
     dashboardPage,
-    saveChat
+    saveChat,
+    deleteChat
 }

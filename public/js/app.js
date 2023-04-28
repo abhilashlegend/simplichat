@@ -67,6 +67,7 @@ chatForm.addEventListener('submit', function(e) {
         `;
         const chatContainer = document.getElementById("chat-container");
         chatContainer.innerHTML += html;
+        scrollChatsToBottom();
         socket.emit('newChat', data)
 
     }).catch(error => console.error('Error :', error));
@@ -74,7 +75,6 @@ chatForm.addEventListener('submit', function(e) {
 
 
 socket.on('loadNewChat', function(data){
-    console.log(data);
     if(sender_id == data.data.receiver_id && receiver_id == data.data.sender_id){
         const now = new Date();
         const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
@@ -90,6 +90,7 @@ socket.on('loadNewChat', function(data){
         `;
         const chatContainer = document.getElementById("chat-container");
         chatContainer.innerHTML += html;
+        scrollChatsToBottom();
     }
     
 })
@@ -137,4 +138,14 @@ socket.on('loadChats', function(data){
         `;
     }
     chatContainer.innerHTML += html;
-})
+
+    scrollChatsToBottom();
+});
+
+
+
+function scrollChatsToBottom(){
+    const chatContainer = document.getElementById("chat-container");
+    chatContainer.lastElementChild.scrollIntoView();
+}
+

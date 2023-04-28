@@ -2,12 +2,13 @@
 :root {
     --primary-color: #e3f2fd;
     --secondary-color: #6AE184; 
+    --secondary-hover-color: #55c57a;
 }
 .logo { width: 42px; height: 42px; }
 .simpli-nav { background-color: var(--primary-color) ; padding: 0 1rem;}
 .nav-link { cursor: pointer;}
 .btn-simplichat { border-radius: 0px; background-color: var(--secondary-color); width: 100%; font-weight: bold; text-transform: uppercase; position: relative; transition: all .2s; }
-.btn-simplichat:hover { background-color: #55c57a; transform: translateY(0.3rem); box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+.btn-simplichat:hover { background-color: var(--secondary-hover-color); transform: translateY(0.3rem); box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
 .form-control { border-radius: 0px;}
 
 /* Footer Section */
@@ -134,7 +135,7 @@ color: #FFF; display: flex; }
 }
 
 .chat-history ul {
-    padding: 0;
+    padding: 0 1rem 0;
 }
 .chat-history .message:after {
     bottom: 100%;
@@ -210,6 +211,10 @@ color: #FFF; display: flex; }
 .chat-sendbtn {
     background-color: var(--secondary-color);
     border-radius: 0px;
+}
+
+.chat-sendbtn:hover, .chat-sendbtn:focus {
+    background-color: #55c57a;
 }
 
 .chat-history .my-message {

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded',() => {
              let userId = this.getAttribute('data-id');
              receiver_id = userId;
             socket.emit('existsChat', {sender_id: sender_id, receiver_id: receiver_id});
+            
         })
     }
 })
@@ -53,13 +54,18 @@ chatForm.addEventListener('submit', function(e) {
     fetch(url, params).then(response => response.json()).then(data => { 
         document.getElementById('message').value = '';
         let chat = data.data.message;
+        let addDel = '';
+        if(sender_id == data.data.sender_id) {
+            addDel = `<i class="bi bi-trash chat-delete-icon" data-id="${data.data._id}" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>`;
+        }
         const now = new Date();
         const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
         let html = `
-        <li class="clearfix">
+        <li class="clearfix" id="${data.data._id}">
             <div class="message-data text-right"> 
                 <span class="message-data-time">${time}, Today</span> 
             </div>
+            ${addDel}
             <div class="message other-message float-right"> 
                 ${chat}
             </div>
@@ -79,7 +85,7 @@ socket.on('loadNewChat', function(data){
         const now = new Date();
         const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
         let html = `
-        <li class="clearfix">
+        <li class="clearfix" id="${data.data._id}">
             <div class="message-data"> 
                 <span class="message-data-time">${time}, Today</span>
             </div>
@@ -125,15 +131,21 @@ socket.on('loadChats', function(data){
 
         const date = new Date(chats[x]['updatedAt']);
         const formattedDate = date.toLocaleDateString("en-GB", options);
+        let addDel = '';
+        if(chats[x]['sender_id'] == sender_id) {
+            addDel = `<i class="bi bi-trash chat-delete-icon" data-id="${chats[x]['_id']}" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>`;
+        }
 
         html += `
-        <li class="clearfix">
+        <li class="clearfix" id="${chats[x]['_id']}">
             <div class="${timeClass}"> 
                 <span class="message-data-time">${formattedDate}</span> 
             </div>
+            ${addDel}
             <div class="${addClass}"> 
                 ${chats[x]['message']}
             </div>
+            
         </li>
         `;
     }
@@ -149,3 +161,45 @@ function scrollChatsToBottom(){
     chatContainer.lastElementChild.scrollIntoView();
 }
 
+
+
+var myModalEl = document.getElementById('staticBackdrop')
+myModalEl.addEventListener('show.bs.modal', function (event) {
+    let msg = event.relatedTarget.nextElementSibling.innerText;
+    document.getElementById("delete-message").innerText = msg;
+    document.getElementById("delete-message-id").value = event.relatedTarget.getAttribute("data-id");
+})
+
+const delConfirmForm = document.getElementById("deleteConfirmForm");
+
+delConfirmForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const id = document.getElementById("delete-message-id").value;
+
+    const url = '/delete-chat';
+
+    const data = {
+        id: id
+    };
+
+    const params = {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+
+    fetch(url, params).then(response => response.json()).then(data => {
+        document.getElementById(id).remove();  
+        const DelModal = document.getElementById('staticBackdrop');
+        const modal = bootstrap.Modal.getInstance(DelModal);
+        modal.hide();
+        socket.emit('chatDeleted', id);
+    }).catch(error => console.log(error));
+});
+
+socket.on('chatMessageDeleted', function(id){
+    document.getElementById(id).remove();
+});

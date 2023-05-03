@@ -108,9 +108,10 @@ const saveChat = async (req, res) => {
 const deleteChat = async (req, res) => {
     try {
         await Chat.deleteOne({_id: req.body.id });
-        res.status(200).send({ success: true, msg: error.message });
+        res.status(200).send({ success: true, msg: 'Message deleted' });
     } catch (error) {
-        res.status(400).send({ success: false, msg: error.message });
+        console.log(error);
+        res.status(400).send({ success: false, msg: error });
     }
 }
 

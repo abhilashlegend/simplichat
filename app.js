@@ -51,6 +51,11 @@ unsp.on('connection', async socket => {
 
         socket.emit('loadChats', { chats: chats })
     })
+
+    // chat deleted
+    socket.on('chatDeleted', (id) => {
+        socket.broadcast.emit('chatMessageDeleted', id);
+    })
 })
 
 const port = 8000;

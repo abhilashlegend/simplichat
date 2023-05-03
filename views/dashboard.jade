@@ -52,6 +52,24 @@ block content
                                         button.btn.chat-sendbtn(type="submit") 
                                             i.bi.bi-send.me-2
                                             | Send
+
+    .modal.fade#staticBackdrop(tabindex="-1", aria-labelledby="deleteConfirmModelTitle", aria-hidden="true", role="dialog")
+        .modal-dialog.modal-dialog-centered
+            .modal-content
+                .modal-header
+                    h5.modal-title#deleteConfirmModelTitle Modal title
+                    button.btn-close(data-bs-dismiss="modal", aria-label="Close", type="button") 
+                form#deleteConfirmForm    
+                    .modal-body
+                        input#delete-message-id(type="hidden", name="id")
+                        p Are you sure you want to delete below message ?
+                        p 
+                            b#delete-message
+            
+                    .modal-footer
+                        button.btn.btn-secondary(type="button", data-bs-dismiss="modal") Close
+                        button.btn.btn-danger(type="submit") Delete
+                                         
     
 
 

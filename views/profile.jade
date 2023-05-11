@@ -1,0 +1,37 @@
+extends master.jade
+
+block content 
+
+    .container 
+        .row 
+            .col-md-6.offset-md-3
+                h1 Profile 
+
+                form.mb-5(method="post", action="/update-profile/#{user._id}", enctype="multipart/form-data")
+                    .mb-3
+                        label.form-label(for="firstName") First Name
+                        input.form-control#firstName(value="#{user.firstName}", name="firstName")
+                    .mb-3
+                        label.form-label(for="lastName") Last Name
+                        input.form-control#lastName(value="#{user.lastName}", name="lastName")
+                    .mb-3
+                        label.form-label(for="email") Email
+                        input.form-control#email(value="#{user.email}", type="email", name="email")
+                    .mb-3
+                        label.form-label(for="phone") Phone
+                        input.form-control#phone(value="#{user.phone}", name="phone")
+                    .mb-3
+                        label.form-label(for="profilepic") Profile Picture
+                        div.pb-3
+                            img(src="#{user.image}", alt="Profile Picture", width="100px" height="100px")
+                        input.form-control#profilepic(type="file", name="image")
+                        input(type="hidden", value="#{user.image}", name="old_image") 
+                    .mb-3
+                        label.form-label(for="password") Password
+                        input.form-control#password(value="", name="password", type="password")
+                        input(type="hidden", value="#{user.password}", name="old_password") 
+                    .mb-3
+                        label.form-label(for="confirmPassword") Confirm Password
+                        input.form-control#confirmPassword(value="", name="confirmPassword", type="password")
+                    button.btn.btn-success.me-2(type="submit") Update 
+                    a.btn.btn-secondary(href="/") Cancel 

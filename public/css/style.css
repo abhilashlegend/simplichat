@@ -222,3 +222,7 @@ color: #FFF; display: flex; }
 }
 
 .chat-delete-icon { color: red; float: right; cursor: pointer; }
+
+main { 
+    min-height: 600px;
+}

@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const Chat = require('../models/chatModel');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 
 const homePage = async (req, res) => {
     try {
@@ -105,6 +106,49 @@ const saveChat = async (req, res) => {
     }
 }
 
+const updateProfile = async(req, res) => {
+    try {
+        let id = req.params.id;
+        let new_image = '';
+        let new_password = '';
+
+        if(req.file){
+            new_image =  'images/uploads/' + req.file.filename;
+            try {
+                fs.unlinkSync('./public/' + req.body.old_image);
+            }
+            catch(error){
+                console.log(error);
+            }
+        } else {
+            new_image = req.body.old_image;
+        }
+
+        if(req.body.password != ''){
+            new_password = await bcrypt.hash(req.body.password, 10);
+        } else {
+            new_password = req.body.old_password;
+        }
+
+        User.findByIdAndUpdate(id, {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phone: req.body.phone,
+            image: new_image,
+            password: new_password
+        }).then(async result => {
+            const userData = await User.findOne({_id: id});
+            req.session.user = userData;
+            res.redirect("/dashboard")
+        }).catch(error => {
+            res.status(400).send({ success: false, msg: error.message })
+        })
+    } catch (error) {
+        res.status(400).send({ success: false, msg: error.message })
+    }
+}
+
 const deleteChat = async (req, res) => {
     try {
         await Chat.deleteOne({_id: req.body.id });
@@ -112,6 +156,15 @@ const deleteChat = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).send({ success: false, msg: error });
+    }
+}
+
+const profilePage = (req, res) => {
+    try {
+        res.render('profile', {title: 'Profile', user: req.session.user });    
+        console.log(user);   
+    } catch (error) {
+        
     }
 }
 
@@ -124,5 +177,7 @@ module.exports = {
     logout,
     dashboardPage,
     saveChat,
-    deleteChat
+    deleteChat,
+    profilePage,
+    updateProfile
 }
